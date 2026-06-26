@@ -16,6 +16,17 @@ app.use(express.json());
 // Register API routes
 app.use('/products', productsRouter);
 
+// Welcome route for root pings / health checks
+app.get('/', (req, res) => {
+  res.status(200).json({ 
+    message: 'Welcome to the CodeVector Products API',
+    endpoints: {
+      products: '/products',
+      health: '/health'
+    }
+  });
+});
+
 // Health check endpoint
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'ok', message: 'Server is healthy' });

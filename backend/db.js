@@ -16,6 +16,10 @@ const pool = new Pool({
   idleTimeoutMillis: 30000,
   // Milliseconds before returning an error if client cannot be acquired
   connectionTimeoutMillis: 2000,
+  // SSL configuration (required for cloud hosting like Neon.tech)
+  ssl: process.env.DB_SSL === 'true' || (process.env.DB_HOST && process.env.DB_HOST.includes('neon.tech')) 
+    ? { rejectUnauthorized: false } 
+    : false
 });
 
 // Event listener for error handling on idle pool clients
